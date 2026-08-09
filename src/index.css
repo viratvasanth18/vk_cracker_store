@@ -164,6 +164,27 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 10px 30px -10px rgba(212, 168, 67, 0.15);
 }
 
+@keyframes continuous-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: continuous-marquee 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover,
+.animate-marquee:focus-within {
+  animation-play-state: paused;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up,
@@ -172,9 +193,41 @@ h1, h2, h3, h4, h5, h6 {
   .animate-pulse-glow {
     animation: none;
   }
+
+  .animate-marquee {
+    animation: none !important;
+    transform: none !important;
+  }
   
   * {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
 }
+
+/* Estimate panel slide animations */
+@keyframes estimate-slide-in {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes estimate-slide-out {
+  from { transform: translateX(0); }
+  to   { transform: translateX(100%); }
+}
+
+.estimate-panel-enter {
+  animation: estimate-slide-in 0.3s ease-out both;
+}
+.estimate-panel-exit {
+  animation: estimate-slide-out 0.3s ease-in both;
+}
+
+/* Hide scrollbar for category pills */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
